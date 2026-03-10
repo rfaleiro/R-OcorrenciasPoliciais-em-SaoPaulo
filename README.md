@@ -92,7 +92,7 @@ de tempo.**
 | Contravencionais | 41,768 | 48,962 | 17.2% |
 | Entorpecentes | 57,436 | 43,101 | -25.0% |
 
-A Explosão da Violência Contra a Dignidade Sexual e Patrimônio
+**A Explosão da Violência Contra a Dignidade Sexual e Patrimônio**
 
 O primeiro gráfico de halteres revelando os perfis agregados **por
 natureza criminal** explica visceralmente para onde a carga violenta
