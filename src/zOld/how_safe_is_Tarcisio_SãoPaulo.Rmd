@@ -1,0 +1,359 @@
+---
+title: "Análise de Criminalidade no Estado de São Paulo (2016-2025)"
+author: "github.com/RFaleiro"
+date: "`r Sys.Date()`"
+output: 
+ html_document:
+  toc: true
+  toc_float: true
+  theme: flatly
+  highlight: tango
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.width = 10, fig.height = 6)
+
+# Load libraries from requirements.txt
+find_reqs <- function() {
+    for (d in c(".", "..", "../..", "../../..", "ocorrencias-em-sao-paulo", "ocorrencias-em-sao-paulo/R_Ocorrencias_em_sao_paulo/..")) {
+        p <- file.path(d, "requirements.txt")
+        if (file.exists(p)) {
+            return(p)
+        }
+    }
+    return(NA)
+}
+req_path <- find_reqs()
+if (!is.na(req_path)) {
+    reqs <- readLines(req_path, warn = FALSE)
+    r_start <- match("# R Dependencies", reqs)
+    if (!is.na(r_start)) {
+        r_pkgs <- trimws(reqs[(r_start + 1):length(reqs)])
+        r_pkgs <- r_pkgs[r_pkgs != "" & !startsWith(r_pkgs, "#")]
+        if (!require("pacman", quietly = TRUE)) install.packages("pacman", repos = "http://cran.us.r-project.org")
+        pacman::p_load(char = r_pkgs)
+    }
+} else {
+    stop("Could not find requirements.txt")
+}
+
+# Load the processed dataset
+df_wide <- read.csv("../data/processed/df_wide_estado.csv", check.names = FALSE, stringsAsFactors = FALSE)
+df_wide$Date <- as.Date(df_wide$Date)
+
+# Extract metric names
+metric_names <- setdiff(names(df_wide), c("Date", "Year", "Quarter"))
+
+# Helper to extract categories
+extract_category <- function(metric_name) {
+    strsplit(metric_name, " - ")[[1]][1]
+}
+```
+
+
+
+## 1. Análise geral de boletins de ocorrência do Estado de São Paulo (2016-2025)
+
+Este relatório fornece uma análise extensa dos dados de segurança pública do Estado de São Paulo de 2016 até o início de 2025. Ao agregar mais de 80 métricas distintas de criminalidade, buscamos descobrir tendências macro, identificar as anomalias de crescimento mais rápido pós-pandemia e destacar atividades criminosas altamente correlacionadas.
+
+## Base de dados
+
+A extração dos dados é realizada de forma automatizada (via *web scraping*) diretamente do portal da Secretaria de Segurança Pública do Estado de São Paulo (SSP-SP). 
+
+Para coletar o histórico completo ano a ano, o nosso script constrói dinamicamente a URL de origem das tabelas estatísticas. O endereço base segue um padrão estruturado onde o **ano** e o **trimestre** são alterados programaticamente na URL:
+
+`https://www.ssp.sp.gov.br/assets/estatistica/trimestral/arquivos/{ano}-{trimestre}.htm`
+
+**Como funciona a montagem dinâmica da URL:**
+
+- **`{ano}`**: Varia em um loop de 2016 até o ano atual (2025).
+- **`{trimestre}`**: Varia de `01` a `04` (sempre com dois dígitos), representando cada trimestre do respectivo ano.
+
+Desta forma, o *crawler* substitui essas variáveis iterativamente (por exemplo, acessando a página de dados de `.../2023-01.htm`, seguida por `.../2023-02.htm`, etc.) e faz o download de todos os relatórios, consolidando todo o histórico em um único grande arquivo para a nossa análise.
+
+Os relatórios em formato PDF gerados durante a coleta dos dados brutos podem ser acessados diretamente através [deste link para a pasta `../data/raw/pdf_ssp_reports/`](../data/raw/pdf_ssp_reports/).
+
+## Tendências Gerais
+
+```{r tendencias_gerais}
+# Reading data
+df_wide <- read.csv("../data/processed/df_wide_estado_raw.csv", header = TRUE, check.names = FALSE)
+df_wide$Date <- as.Date(df_wide$Date)
+
+selected_metrics <- c(
+    "Atividades de polícia judiciária - Total de boletins de ocorrência",
+    "Ocorrências policiais registradas, por tipo - Furto - outros"
+)
+
+for (metric_name in selected_metrics) {
+    if (all(is.na(df_wide[[metric_name]]))) {
+        next
+    }
+
+    # Define um título dinâmico mais limpo para cada gráfico
+    plot_title <- ifelse(grepl("boletins", metric_name, ignore.case = TRUE),
+        "Total de Boletins de Ocorrência Registrados no Estado",
+        "Furtos (Não Tipificados / Outros) Registrados no Estado"
+    )
+
+    p <- ggplot(df_wide, aes(x = Date, y = !!sym(metric_name))) +
+        geom_line(color = "#1A73E8", size = 1.2, na.rm = TRUE) +
+        geom_point(color = "#1A73E8", size = 2, na.rm = TRUE) +
+        geom_smooth(method = "loess", color = "darkgray", linetype = "dashed", se = FALSE, na.rm = TRUE) +
+        scale_y_continuous(labels = comma) +
+        scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+        theme_minimal() +
+        labs(
+            title = plot_title,
+            subtitle = "Série Histórica Trimestral (2016 a 2025)",
+            x = "Ano",
+            y = "Quantidade Trimestral",
+            caption = "Fonte: Estado de São Paulo"
+        ) +
+        theme(
+            plot.title = element_text(face = "bold", size = 13),
+            plot.subtitle = element_text(color = "gray40", size = 11),
+            axis.title = element_text(face = "bold"),
+            panel.grid.minor = element_blank()
+        )
+
+    print(p)
+}
+```
+
+A análise exploratória das **Tendências Gerais** da segurança pública em São Paulo nos revela dois panoramas bastante claros na série histórica:
+
+1. **A Escalada Alarmante dos Boletins Totais de Ocorrência:**
+Ao observar a linha geral do Estado, o período pré-pandemia (2016 a 2019) mantinha um registro firme na ordem de **705.162 ocorrências por trimestre**. Após um natural e trágico engessamento do número em 2020 e 2021 pela falta de mobilidade no isolamento dos lockdowns (o grande *vale* no gráfico), houve um rebote dramático: no período pós-2022 o número de boletins trimestrais bateu sucessivos recordes, se perpetuando numa média absurda de **990.152 registros por trimestre**. O cume desse volume denota um incremento estrondoso de **+40,4%** a mais de ocorrências despachadas rotineiramente perante a média histórica pré-crise.
+
+2. **O Crescimento Brando e Descorrelacionado dos Furtos:**
+Por vias analíticas opostas, ao insulormos os chamados casos de **Furto - Outros** (aqueles de baixa resolução e não enquadrados puramente em perfis como veículos pesados), percebemos que o seu padrão sofreu um deslocamento bem inferior. A base de dados revela que, antes de 2020 a média era de *128.597* casos reportados nestas infrações e, mesmo após todo o boom de 2023 pra frente, ele subiu de forma contida para a base de *140.173 casos*. É uma alta de apenas **+9,0%**.
+
+Isso nos leva a uma conclusão importantíssima do ponto de vista investigativo: **como os furtos simples não cresceram na mesma proporção desvairada do todo, conclui-se que o avanço crítico de mais de 40% empurrado no volume macro da Secretaria da Segurança Pública de SP foi insuflado pesadamente por crimes mais diversificados, ou até ocorrências atípicas e violentas que fugiram ao controle ao longo dessa mesma linha de tempo.**
+## Tendência para crimes contra o patrimônio
+```{r tendencias_patrimonio}
+```
+## Tendência para crimes contra a Pessoa
+
+```{r tendencias_pessoa}
+# Reading data
+df_wide <- read.csv("../data/processed/df_wide_estado_raw.csv", header = TRUE, check.names = FALSE)
+df_wide$Date <- as.Date(df_wide$Date)
+
+selected_metrics_pessoa <- c(
+    "Ocorrências policiais registradas, por tipo - Homicídio Culposo (7)",
+    "Ocorrências policiais registradas, por tipo - Tentativa de homicídio"
+)
+
+for (metric_name in selected_metrics_pessoa) {
+    if (all(is.na(df_wide[[metric_name]]))) {
+        next
+    }
+
+    # Define um título dinâmico mais limpo para cada gráfico
+    plot_title <- ifelse(grepl("Culposo", metric_name, ignore.case = TRUE),
+        "Homicídio Culposo (Sem Intenção de Matar)",
+        "Tentativas de Homicídio"
+    )
+
+    p <- ggplot(df_wide, aes(x = Date, y = !!sym(metric_name))) +
+        geom_line(color = "#D32F2F", size = 1.2, na.rm = TRUE) +
+        geom_point(color = "#D32F2F", size = 2, na.rm = TRUE) +
+        geom_smooth(method = "loess", color = "darkgray", linetype = "dashed", se = FALSE, na.rm = TRUE) +
+        scale_y_continuous(labels = comma) +
+        scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+        theme_minimal() +
+        labs(
+            title = plot_title,
+            subtitle = "Série Histórica Trimestral (2016 a 2025)",
+            x = "Ano",
+            y = "Quantidade Trimestral",
+            caption = "Fonte: Estado de São Paulo"
+        ) +
+        theme(
+            plot.title = element_text(face = "bold", size = 13),
+            plot.subtitle = element_text(color = "gray40", size = 11),
+            axis.title = element_text(face = "bold"),
+            panel.grid.minor = element_blank()
+        )
+
+    print(p)
+}
+```
+
+A análise específica dos **Crimes contra a Pessoa**, abordando mortes culposas e atentas à vida que não se consumaram, traz um contraponto importante sobre qual perfil de violência está crescendo verdadeiramente no Estado de São Paulo:
+
+1. **Aumento Consistente dos Homicídios Culposos:**
+Observamos uma tendência consolidada de alta nos homicídios culposos (onde não há intenção primária de matar, estando frequentemente associados a fatalidades sistêmicas, violência no trânsito ou negligência imprudente). A série apresentava uma média contida em cerca de **882 casos** por trimestre antes da pandemia; porém, a curva cresceu de forma contínua a ponto de cruzar, repetidas vezes, a barreira de mais de **1.000 mortes/trimestre** a partir de 2023. Isso compõe um aumento sistemático e não-ignível de **+16,3%**.
+
+2. **Estabilidade Absoluta nas Tentativas de Homicídio:**
+Em contrapartida nítida, as *Tentativas de Homicídio* (crimes violentos, agressões diretas com dolo de matar, mas interceptadas) não pioraram estruturalmente. A sua média pré-crise orbitava na casa de 924 registros trimestrais, oscilando para exatos **914 casos/trimestre** no período recente pós-2022. Essa é uma variação achatada de essencialmente **-1,0%** (estabilidade perfeita).
+
+A união destes dois cenários endossa a lógica discutida na tendência geral: ao cruzar a não-piora da intenção ativa de matar de um lado e o salto formidável em vítimas letais de homicídios culposos do outro, concluímos que a violência clássica e premeditada das ruas paulistas não avançou massivamente — o perigo e as fatalidades estruturais cresceram através de vias mais imprudentes/acidentais dentro da sociedade ou tráfego civil.
+
+## Crimes Graves  - Estupro
+
+```{r estupro_total}
+# Reading data
+df_wide <- read.csv("../data/processed/df_wide_estado_raw.csv", header = TRUE, check.names = FALSE)
+df_wide$Date <- as.Date(df_wide$Date)
+
+# Extract a vector of all unique metrics directly from the columns that remain
+# Exclude the grouping/time columns
+metric_names <- setdiff(names(df_wide), c("Date", "Year", "Quarter"))
+
+selected_metric <- c("Ocorrências policiais registradas, por tipo - Estupro TOTAL (17)")
+
+for (metric_name in selected_metric) {
+    # Check if all values for this metric are NA
+    if (all(is.na(df_wide[[metric_name]]))) {
+        next
+    }
+
+    # Create the ggplot directly using the column from df_wide
+    # Sym() is used to inject the column name from the string cleanly
+    p <- ggplot(df_wide, aes(x = Date, y = !!sym(metric_name))) +
+        geom_line(color = "#1A73E8", size = 1.2, na.rm = TRUE) +
+        geom_point(color = "#1A73E8", size = 2, na.rm = TRUE) +
+        geom_smooth(method = "loess", color = "darkgray", linetype = "dashed", se = FALSE, na.rm = TRUE) +
+        scale_y_continuous(labels = comma) +
+        scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+        theme_minimal() +
+        labs(
+            title = paste(str_wrap(metric_name, width = 70)), # Dynamic title based on loop
+            subtitle = "Ocorrências por trimestre de 2016 a 2025",
+            x = "Ano",
+            y = "Boletins de Ocorrência",
+            caption = "Fonte: Estado de São Paulo"
+        ) +
+        theme(
+            plot.title = element_text(face = "bold", size = 12),
+            plot.subtitle = element_text(color = "gray40", size = 11),
+            axis.title = element_text(face = "bold"),
+            panel.grid.minor = element_blank()
+        )
+
+    # IMPORTANT: In a loop, you must explicitly print() the ggplot object
+    print(p)
+}
+```
+
+O gráfico de série histórica revela uma pronunciada quebra de padrão trazida pela pandemia. No segundo trimestre de 2020 ocorreu a maior queda da série (atingindo apenas cerca de 2.167 casos num único trimestre), o que reflete a trágica subnotificação gerada pelo confinamento do isolamento social. Porém, imediatamente após a volta à normalidade, a curva não apenas retornou à sua média, mas assumiu uma vertiginosa tendência de aceleração, escalando e quebrando seguidos recordes históricos até atingir níveis críticos acima de 3.800 ocorrências trimestrais em 2024 e no início de 2025.
+
+### Taxa de crescimento de estupros
+```{r}
+# 1. Read the already processed wide dataset
+df_wide <- read.csv("../data/processed/df_wide_estado_raw.csv", check.names = FALSE, stringsAsFactors = FALSE)
+
+# Extract metric names (excluding time columns)
+metric_names <- setdiff(names(df_wide), c("Date", "Year", "Quarter"))
+selected_metric <- c("Ocorrências policiais registradas, por tipo - Estupro TOTAL (17)", "Ocorrências policiais registradas, por tipo - Estupro de Vulnerável", "Ocorrências policiais registradas, por tipo - Estupro")
+# 2. Extract Category names from the metric columns
+# The python crawler prepended the category using " - "
+categories <- sapply(metric_names, function(m) {
+    strsplit(m, " - ")[[1]][1]
+})
+unique_cats <- unique(categories)
+unique_cats <- unique_cats[!is.na(unique_cats) & unique_cats != ""]
+
+# 3. Calculate Yearly Totals for each metric
+# df_wide already has Year, we just need to sum all quarters up per year
+yearly_totals_wide <- df_wide |>
+    group_by(Year) |>
+    summarise(across(all_of(selected_metric), ~ sum(.x, na.rm = TRUE)), .groups = "drop")
+
+# 4. Group into 'Before' and 'After' periods (Excluding 2020-2022)
+# We pivot to long format to do the math easily for all metrics
+period_comparison <- yearly_totals_wide |>
+    pivot_longer(cols = all_of(selected_metric), names_to = "Metric", values_to = "Total_Year") |>
+    mutate(Period = case_when(
+        Year < 2020 ~ "Before_2020",
+        Year > 2022 ~ "After_2022",
+        TRUE ~ "Exclude"
+    )) |>
+    filter(Period != "Exclude") |>
+    group_by(Metric, Period) |>
+    summarise(Avg_Yearly = mean(Total_Year, na.rm = TRUE), .groups = "drop") |>
+    pivot_wider(names_from = Period, values_from = Avg_Yearly, values_fill = 0) |>
+    # Log10 cannot handle 0. We must ensure both periods have at least > 0 occurrences
+    filter(Before_2020 > 0 & After_2022 > 0) |>
+    mutate(
+        Pct_Increase = (After_2022 - Before_2020) / Before_2020,
+        # Re-attach Category by splitting the Metric string exactly as done previously
+        Category = sapply(Metric, function(m) strsplit(m, " - ")[[1]][1])
+    )
+
+# 6. Initialize the FOR loop
+for (current_cat in unique_cats) {
+    # Filter data for the current category in the loop
+    df_cat <- period_comparison |> filter(Category == current_cat)
+
+    if (nrow(df_cat) > 0) {
+        # ---------------------------------------------------------
+        # Clean the Metric names for plotting
+        # ---------------------------------------------------------
+        df_cat <- df_cat |>
+            mutate(
+                # Remove the Category string from the Metric string
+                Metric_Clean = gsub(current_cat, "", Metric, fixed = TRUE),
+                # Remove any leftover leading dashes, colons, or whitespace
+                Metric_Clean = trimws(sub("^[-:[:space:]]+", "", Metric_Clean)),
+                # Fallback
+                Metric_Clean = ifelse(Metric_Clean == "", Metric, Metric_Clean)
+            )
+
+        # Order the factor using the new Clean Metric name
+        df_cat$Metric_Clean <- factor(df_cat$Metric_Clean, levels = df_cat$Metric_Clean[order(df_cat$Pct_Increase)])
+
+        # Create the Dumbbell Plot
+        p <- ggplot(df_cat) +
+            geom_segment(
+                aes(
+                    x = Before_2020, xend = After_2022,
+                    y = Metric_Clean, yend = Metric_Clean
+                ),
+                color = "gray70", linewidth = 1.2
+            ) +
+            geom_point(aes(x = Before_2020, y = Metric_Clean), color = "#5F6368", size = 3) +
+            geom_point(aes(x = After_2022, y = Metric_Clean), color = "#D32F2F", size = 3) +
+            geom_text(
+                aes(
+                    x = pmax(Before_2020, After_2022), y = Metric_Clean,
+                    label = paste0(ifelse(Pct_Increase > 0, "+", ""), round(Pct_Increase * 100, 1), "%")
+                ),
+                color = "#D32F2F", fontface = "bold", hjust = -0.3, vjust = 0.5, size = 4.5
+            ) +
+            scale_x_log10(labels = comma, expand = expansion(mult = c(0.05, 0.8))) +
+            theme_minimal() +
+            labs(
+                title = paste("", current_cat),
+                subtitle = "Média de ocorrências anuais (Antes de 2020 vs Depois de 2022).",
+                x = "Média de ocorrências por ano (Log10 Scale)",
+                y = NULL,
+                caption = "Fonte: https://www.ssp.sp.gov.br | Ponto cinza = Antes de 2020, Ponto vermelho = depois de 2022"
+            ) +
+            theme(
+                plot.title = element_text(face = "bold", size = 16, color = "#202124"),
+                plot.subtitle = element_text(size = 11, color = "gray40", margin = margin(b = 15)),
+
+                # Angled and reduced text size for the Y-axis to save space
+                axis.text.y = element_text(face = "bold", size = 8, angle = 20, hjust = 1, color = "#202124"),
+                axis.text.x = element_text(size = 10),
+                panel.grid.major.y = element_blank(),
+                panel.grid.minor.x = element_blank(),
+                plot.margin = margin(t = 20, r = 80, b = 20, l = 10)
+            )
+
+        # Print the plot
+        print(p)
+    }
+}
+```
+
+O gráfico acima revela que a categoria **Estupro de Vulnerável** foi o verdadeiro motor do crescimento criminoso pós-pandemia, saltando vertiginosamente +31% em relação a 2019 (de 8.487 para 11.118 vítimas/ano). Em contrapartida, as ocorrências comuns de "Estupro" permaneceram quantitativamente estáveis (apenas +2,3% de aumento), indicando que o alarmante agravamento estadual decorre primariamente de violações contra vulneráveis e menores.
+
+## Quem morre e Quem Mata?
+```{r vitimas_e_autores}
+```
