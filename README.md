@@ -1,5 +1,6 @@
 Análise de Criminalidade no Estado de São Paulo (2016-2025)
 ================
+
 github.com/RFaleiro
 2026-03-09
 
@@ -47,7 +48,7 @@ podem ser acessados diretamente através [deste link para a pasta
 A análise exploratória das **Tendências Gerais** da segurança pública em
 São Paulo nos revela dois panoramas bastante claros na série histórica:
 
-1.  **A Escalada Alarmante dos Boletins Totais de Ocorrência:** Ao
+1. **A Escalada Alarmante dos Boletins Totais de Ocorrência:** Ao
     observar a linha geral do Estado, o período pré-pandemia (2016
     a 2019) mantinha um registro firme na ordem de **705.162 ocorrências
     por trimestre**. Após um natural e trágico engessamento do número em
@@ -59,14 +60,14 @@ São Paulo nos revela dois panoramas bastante claros na série histórica:
     **+40,4%** a mais de ocorrências despachadas rotineiramente perante
     a média histórica pré-crise.
 
-2.  **O Crescimento Brando e Descorrelacionado dos Furtos:** Por vias
+2. **O Crescimento Brando e Descorrelacionado dos Furtos:** Por vias
     analíticas opostas, ao insulormos os chamados casos de **Furto -
     Outros** (aqueles de baixa resolução e não enquadrados puramente em
     perfis como veículos pesados), percebemos que o seu padrão sofreu um
     deslocamento bem inferior. A base de dados revela que, antes de 2020
     a média era de *128.597* casos reportados nestas infrações e, mesmo
     após todo o boom de 2023 pra frente, ele subiu de forma contida para
-    a base de *140.173 casos*. É uma alta de apenas **+9,0%**.
+    a base de *140.173 casos*. É uma alta de **+9,0%**.
 
 Isso nos leva a uma conclusão importantíssima do ponto de vista
 investigativo: **como os furtos simples não cresceram na mesma proporção
@@ -139,8 +140,8 @@ pontas nos últimos anos.
 | Roubo de veículos | 62,850 | 31,397 | -50.0% |
 | Roubo a Banco | 77 | 5 | -94.0% |
 
-**A Migração do Crime: Extorsões Explodem, Roubos de Alto Padrão
-Desabam: **Ao destrincharmos rigorosamente os dados dentro das
+**A Migração do Crime:** Extorsões Explodem, Roubos de Alto Padrão
+Desabam:**Ao destrincharmos rigorosamente os dados dentro das
 tipificações criminais do segundo gráfico, uma radiografia espantosa e
 muito singular da sociedade paulista se desenha. O crime organizado
 comum operou uma pivotagem brutal no Estado de São Paulo abandonando os
@@ -148,16 +149,14 @@ crimes tradicionalmente caracterizados como *‘defesa do patrimônio das
 elites e corporações’* e escorrendo para a impunidade do ambiente
 digital e da extorsão direta na rua.
 
-**O Que Mais Desabou: **Houve um colapso gigantesco e estatisticamente
+**O Que Mais Desabou:** Houve um colapso gigantesco e estatisticamente
 perfeito nas ocorrências que demandam confronto direto contra capital
-fortificado e corporativo. A base revela que **Roubo a Banco
-(derretimento de -94%)**, **Roubo de Veículos (-50%)**, **Roubo de Carga
-(-48,1%)** e até o trágico **Latrocínio (-46,8%)** caíram praticamente
-pela metade em comparação com a rotina paulista antes de 2020. O governo
+fortificado e corporativo. A base revela que **Roubo a **Banco (derretimento de -94%)**, **Roubo de Veículos (-50%)**, **Roubo de Carga* (-48,1%)** e até o trágico **Latrocínio (-46,8%)**
+caíram praticamente pela metade em comparação com a rotina paulista antes de 2020. O governo
 obteve aparente controle pleno nas vitrines ostensivas de segurança
 privada/pública nos redutos de grande patrimônio.
 
-**O Que Mais Explodiu (O Novo Custo Brasil): **Toda a criminalidade
+**O Que Mais Explodiu (O Novo Custo Brasil):** Toda a criminalidade
 contida nos muros corporativos buscou uma assustadora compensação no
 cidadão civil comum. A tipificação que sofreu o aumento mais alucinante
 e bizarro de toda a história da SSP-SP foi a **Extorsão Mediante
@@ -185,7 +184,7 @@ culposas e atentas à vida que não se consumaram, traz um contraponto
 importante sobre qual perfil de violência está crescendo verdadeiramente
 no Estado de São Paulo:
 
-1.  **Aumento Consistente dos Homicídios Culposos:** Observamos uma
+1. **Aumento Consistente dos Homicídios Culposos:** Observamos uma
     tendência consolidada de alta nos homicídios culposos (onde não há
     intenção primária de matar, estando frequentemente associados a
     fatalidades sistêmicas, violência no trânsito ou negligência
@@ -195,7 +194,7 @@ no Estado de São Paulo:
     mais de **1.000 mortes/trimestre** a partir de 2023. Isso compõe um
     aumento sistemático e não-ignível de **+16,3%**.
 
-2.  **Estabilidade Absoluta nas Tentativas de Homicídio:** Em
+2. **Estabilidade Absoluta nas Tentativas de Homicídio:** Em
     contrapartida nítida, as *Tentativas de Homicídio* (crimes
     violentos, agressões diretas com dolo de matar, mas interceptadas)
     não pioraram estruturalmente. A sua média pré-crise orbitava na casa
@@ -222,7 +221,7 @@ estrondoso e verdadeiro sucesso operacional na última década no Estado
 de São Paulo. Se as ocorrências totais estaduais escalaram mais de +40%,
 os crimes vitrine não seguiram a mesma sorte:
 
-1.  **A Erradicação do Roubo a Banco:** O roubo a instituições
+1. **A Erradicação do Roubo a Banco:** O roubo a instituições
     financeiras, que exigia quadrilhas pesadas, logística
     cinematográfica e armas de guerra — além de ferir de morte o capital
     blindado do Estado — desmoronou do mapa de ocorrências de forma
@@ -231,7 +230,7 @@ os crimes vitrine não seguiram a mesma sorte:
     5 casos por ano), desenhando um colapso avassalador de **-94%**
     sobre a modalidade.
 
-2.  **A Sangria Estancada no Roubo de Carga e Veículos:** Do mesmo modo
+2. **A Sangria Estancada no Roubo de Carga e Veículos:** Do mesmo modo
     impecável de atuação (muito dependente de rodovias, fiscalizações de
     ponta, seguradoras e policiamento ostensivo), os roubos de carga
     (que escoavam a infraestrutura logística corporativa) e os roubos de
@@ -282,7 +281,7 @@ Diferente do pânico urbano observado nos crimes cibernéticos ou
 violência patrimonial nas ruas abertas, **O combate letal direto pelo
 monopólio da força não cresceu**:
 
-1.  **Suspeitos Mortos pela Força Especial:** Puxados majoritariamente
+1. **Suspeitos Mortos pela Força Especial:** Puxados majoritariamente
     pela Polícia Militar, os civis/suspeitos mortos em confronto direto
     durante o serviço caíram substancialmente nos recortes médios
     desde 2016. Na soma de todas as pastas militares e civis, o Estado
@@ -291,7 +290,7 @@ monopólio da força não cresceu**:
     guinada à estagnação: esse volume reduziu para patamares médios de
     **590 suspeitos mortos em confronto anualmente** (uma contração de
     quase -11%).
-2.  **Policiais Tombaram Menos:** Por sua vez, a fatalidade cruzada — os
+2. **Policiais Tombaram Menos:** Por sua vez, a fatalidade cruzada — os
     próprios oficiais caídos em serviço na deflagração do dever — também
     registrou recuo de baixa margem. O sistema estadual costumava lidar
     com uma média de **18 oficiais mortos ao ano** (unindo as cruzes da
