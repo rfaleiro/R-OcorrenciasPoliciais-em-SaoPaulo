@@ -1,8 +1,0 @@
-# Ignorar arquivos gerados automaticamente nas estatísticas de linguagem do GitHub
-output/** linguist-generated=true
-*.html linguist-generated=true
-
-# Ignorar arquivos de dados (CSV, PDF, etc)
-data/** linguist-generated=true
-*.csv linguist-generated=true
-*.pdf linguist-generated=true

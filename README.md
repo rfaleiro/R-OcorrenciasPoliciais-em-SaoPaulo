@@ -1,8 +1,7 @@
 Análise de Criminalidade no Estado de São Paulo (2016-2025)
 ================
-
 github.com/RFaleiro
-2026-03-09
+2026-03-13
 
 ## 1. Proposta
 
@@ -48,7 +47,7 @@ podem ser acessados diretamente através [deste link para a pasta
 A análise exploratória das **Tendências Gerais** da segurança pública em
 São Paulo nos revela dois panoramas bastante claros na série histórica:
 
-1. **A Escalada Alarmante dos Boletins Totais de Ocorrência:** Ao
+1.  **A Escalada Alarmante dos Boletins Totais de Ocorrência:** Ao
     observar a linha geral do Estado, o período pré-pandemia (2016
     a 2019) mantinha um registro firme na ordem de **705.162 ocorrências
     por trimestre**. Após um natural e trágico engessamento do número em
@@ -60,14 +59,14 @@ São Paulo nos revela dois panoramas bastante claros na série histórica:
     **+40,4%** a mais de ocorrências despachadas rotineiramente perante
     a média histórica pré-crise.
 
-2. **O Crescimento Brando e Descorrelacionado dos Furtos:** Por vias
+2.  **O Crescimento Brando e Descorrelacionado dos Furtos:** Por vias
     analíticas opostas, ao insulormos os chamados casos de **Furto -
     Outros** (aqueles de baixa resolução e não enquadrados puramente em
     perfis como veículos pesados), percebemos que o seu padrão sofreu um
     deslocamento bem inferior. A base de dados revela que, antes de 2020
     a média era de *128.597* casos reportados nestas infrações e, mesmo
     após todo o boom de 2023 pra frente, ele subiu de forma contida para
-    a base de *140.173 casos*. É uma alta de **+9,0%**.
+    a base de *140.173 casos*. É uma alta de apenas **+9,0%**.
 
 Isso nos leva a uma conclusão importantíssima do ponto de vista
 investigativo: **como os furtos simples não cresceram na mesma proporção
@@ -92,7 +91,7 @@ de tempo.**
 | Contravencionais | 41,768 | 48,962 | 17.2% |
 | Entorpecentes | 57,436 | 43,101 | -25.0% |
 
-**A Explosão da Violência Contra a Dignidade Sexual e Patrimônio**
+A Explosão da Violência Contra a Dignidade Sexual e Patrimônio
 
 O primeiro gráfico de halteres revelando os perfis agregados **por
 natureza criminal** explica visceralmente para onde a carga violenta
@@ -140,8 +139,8 @@ pontas nos últimos anos.
 | Roubo de veículos | 62,850 | 31,397 | -50.0% |
 | Roubo a Banco | 77 | 5 | -94.0% |
 
-**A Migração do Crime:** Extorsões Explodem, Roubos de Alto Padrão
-Desabam:**Ao destrincharmos rigorosamente os dados dentro das
+**A Migração do Crime: Extorsões Explodem, Roubos de Alto Padrão
+Desabam:** Ao destrincharmos rigorosamente os dados dentro das
 tipificações criminais do segundo gráfico, uma radiografia espantosa e
 muito singular da sociedade paulista se desenha. O crime organizado
 comum operou uma pivotagem brutal no Estado de São Paulo abandonando os
@@ -151,8 +150,10 @@ digital e da extorsão direta na rua.
 
 **O Que Mais Desabou:** Houve um colapso gigantesco e estatisticamente
 perfeito nas ocorrências que demandam confronto direto contra capital
-fortificado e corporativo. A base revela que **Roubo a **Banco (derretimento de -94%)**, **Roubo de Veículos (-50%)**, **Roubo de Carga* (-48,1%)** e até o trágico **Latrocínio (-46,8%)**
-caíram praticamente pela metade em comparação com a rotina paulista antes de 2020. O governo
+fortificado e corporativo. A base revela que **Roubo a Banco
+(derretimento de -94%)**, **Roubo de Veículos (-50%)**, **Roubo de Carga
+(-48,1%)** e até o trágico **Latrocínio (-46,8%)** caíram praticamente
+pela metade em comparação com a rotina paulista antes de 2020. O governo
 obteve aparente controle pleno nas vitrines ostensivas de segurança
 privada/pública nos redutos de grande patrimônio.
 
@@ -184,7 +185,7 @@ culposas e atentas à vida que não se consumaram, traz um contraponto
 importante sobre qual perfil de violência está crescendo verdadeiramente
 no Estado de São Paulo:
 
-1. **Aumento Consistente dos Homicídios Culposos:** Observamos uma
+1.  **Aumento Consistente dos Homicídios Culposos:** Observamos uma
     tendência consolidada de alta nos homicídios culposos (onde não há
     intenção primária de matar, estando frequentemente associados a
     fatalidades sistêmicas, violência no trânsito ou negligência
@@ -194,7 +195,7 @@ no Estado de São Paulo:
     mais de **1.000 mortes/trimestre** a partir de 2023. Isso compõe um
     aumento sistemático e não-ignível de **+16,3%**.
 
-2. **Estabilidade Absoluta nas Tentativas de Homicídio:** Em
+2.  **Estabilidade Absoluta nas Tentativas de Homicídio:** Em
     contrapartida nítida, as *Tentativas de Homicídio* (crimes
     violentos, agressões diretas com dolo de matar, mas interceptadas)
     não pioraram estruturalmente. A sua média pré-crise orbitava na casa
@@ -215,13 +216,12 @@ tráfego civil.
 ![](README_files/figure-gfm/tendencias_patrimonio-1.png)<!-- -->![](README_files/figure-gfm/tendencias_patrimonio-2.png)<!-- -->![](README_files/figure-gfm/tendencias_patrimonio-3.png)<!-- -->
 
 Quando passamos a lupa nas estatísticas sobre aquilo que classicamente
-se estrutura como a “Defesa do Patrimônio das Elites ou do Capital
-Corporativo”, cruzamos com a única frente de segurança que apresentou um
-estrondoso e verdadeiro sucesso operacional na última década no Estado
-de São Paulo. Se as ocorrências totais estaduais escalaram mais de +40%,
-os crimes vitrine não seguiram a mesma sorte:
+se estrutura como a **“Defesa do Patrimônio”**, cruzamos com a única
+frente de segurança que apresentou um sucesso operacional na última
+década no Estado de São Paulo. Se as ocorrências totais estaduais
+escalaram mais de +40%, os crimes vitrine não seguiram a mesma sorte:
 
-1. **A Erradicação do Roubo a Banco:** O roubo a instituições
+1.  **A Erradicação do Roubo a Banco:** O roubo a instituições
     financeiras, que exigia quadrilhas pesadas, logística
     cinematográfica e armas de guerra — além de ferir de morte o capital
     blindado do Estado — desmoronou do mapa de ocorrências de forma
@@ -230,17 +230,14 @@ os crimes vitrine não seguiram a mesma sorte:
     5 casos por ano), desenhando um colapso avassalador de **-94%**
     sobre a modalidade.
 
-2. **A Sangria Estancada no Roubo de Carga e Veículos:** Do mesmo modo
-    impecável de atuação (muito dependente de rodovias, fiscalizações de
-    ponta, seguradoras e policiamento ostensivo), os roubos de carga
-    (que escoavam a infraestrutura logística corporativa) e os roubos de
-    veículos (motor fortíssimo da insegurança patrimonial padrão) foram
-    literalmente cortados pela metade. O eixo temporal denota com
-    perfeição a ladeira em inclinação contínua em toda a série: quedas
-    perfeitas e simétricas de **-48% e -50%** em suas volumetrias
-    médias, atestando uma política de estado que soube frear, sem
-    sombras de dúvidas, as velhas artérias de extração bilionária do
-    crime tradicional paulista.
+2.  **A Sangria Estancada no Roubo de Carga e Veículos:** As modalidades
+    de roubo de carga e de veículos apresentaram **quedas acentuadas de
+    48% e 50%**, respectivamente, em suas volumetrias médias. A série
+    histórica indica um declínio contínuo e simétrico nessas categorias,
+    que dependem diretamente de fatores como fiscalização rodoviária,
+    policiamento ostensivo e regulação de seguradoras. Os dados sugerem
+    maior controle estatal sobre crimes patrimoniais tradicionalmente
+    associados à infraestrutura logística e urbana no estado.
 
 ## 3. Crimes Graves - Estupro
 
@@ -268,39 +265,60 @@ permaneceram quantitativamente estáveis (apenas +2,3% de aumento),
 indicando que o alarmante agravamento estadual decorre primariamente de
 violações contra vulneráveis e menores.
 
-## 4. Quem morre e Quem Mata: A Atuação Policial
+## 4. O Custo Humano do Confronto: Letalidade e Atuação Policial
 
 ![](README_files/figure-gfm/vitimas_e_autores-1.png)<!-- -->![](README_files/figure-gfm/vitimas_e_autores-2.png)<!-- -->
 
-A aba que diz respeito ao escopo de confronto ativo de toda a força do
-Estado — consubstanciada na junção das métricas vitais das polícias
-Civil e Militar simultaneamente — entrega uma leitura sóbria sobre a
-letalidade nas ruas.
+Este tópico analisa o cenário de letalidade decorrente da intervenção
+estatal, onde o confronto direto entre forças de segurança e civis
+revela o lado mais trágico da insegurança pública. Longe de serem apenas
+números, esses dados representam uma guerra urbana que exige esforços
+contínuos de controle e redução, uma vez que o desfecho letal sinaliza
+uma falha no processo de pacificação onde todos os lados sofrem perdas
+irreparáveis.
 
-Diferente do pânico urbano observado nos crimes cibernéticos ou
-violência patrimonial nas ruas abertas, **O combate letal direto pelo
-monopólio da força não cresceu**:
+A análise dos indicadores aponta para uma dinâmica de resistência e
+vitimização que, embora em patamares menores que no passado, ainda
+demanda atenção crítica:
 
-1. **Suspeitos Mortos pela Força Especial:** Puxados majoritariamente
-    pela Polícia Militar, os civis/suspeitos mortos em confronto direto
-    durante o serviço caíram substancialmente nos recortes médios
-    desde 2016. Na soma de todas as pastas militares e civis, o Estado
-    via historicamente cerca de **660 pessoas mortas por ano pelas
-    tropas até 2019.** O período moderno (após 2022) marcou uma forte
-    guinada à estagnação: esse volume reduziu para patamares médios de
-    **590 suspeitos mortos em confronto anualmente** (uma contração de
-    quase -11%).
-2. **Policiais Tombaram Menos:** Por sua vez, a fatalidade cruzada — os
-    próprios oficiais caídos em serviço na deflagração do dever — também
-    registrou recuo de baixa margem. O sistema estadual costumava lidar
-    com uma média de **18 oficiais mortos ao ano** (unindo as cruzes da
-    Civil e da Militar juntas pré-pandemia), um número que hoje
-    estabilizou por volta de **14 funerais ao ano** na SSP (queda de
-    letalidade entre agentes de -20%).
+### 4.1 Vidas Perdidas em Intervenções Policiais
 
-O que se entende, portanto, é que a ascenção geral do perigo urbano
-vivida pelos cidadãos comuns não foi traduzida pelo aumento da
-tradicional troca de tiros de grande escala entre criminosos pesados e
-os braços militares ostensivos, que tem ficado estatística e
-consistentemente mais desengajada da guerra fatal letal a cada ano que
-passa no Estado de São Paulo.
+Os dados consolidados das polícias Civil e Militar indicam que o número
+de civis mortos em confrontos durante o serviço apresentou uma redução.
+
+- **Média Pré-2020:** ~660 mortes anuais.
+- **Média Pós-2022:** ~590 mortes anuais.
+- **Variação:** `-11%`
+
+> **Nota Crítica:** Embora o recuo estatístico seja um passo em direção
+> ao controle da força, o volume de óbitos ainda evidencia a alta
+> voltagem dos conflitos nas periferias e centros urbanos.
+
+### 4.2 A Vitimização dos Agentes de Segurança
+
+A letalidade também atinge aqueles que operam o braço armado do Estado.
+A perda de vidas de oficiais no cumprimento do dever registrou o
+seguinte comportamento:
+
+- **Média Pré-2020:** 18 agentes por ano.
+- **Média Pós-2022:** 14 agentes por ano.
+- **Variação:** `-20%`
+
+A queda na perda de vidas de policiais é um indicador positivo de
+preservação da integridade dos agentes, mas cada óbito representa uma
+ruptura no sistema de segurança e um custo humano inaceitável para as
+famílias e para a instituição.
+
+------------------------------------------------------------------------
+
+### Conclusão do Cenário
+
+Os dados sugerem que o agravamento da insegurança percebido pelo cidadão
+no dia a dia (como nos crimes digitais e patrimoniais) não tem sido
+acompanhado, proporcionalmente, por uma escalada na guerra letal entre
+Estado e crime organizado.
+
+No entanto, a manutenção de centenas de mortes anuais reforça a urgência
+de políticas de segurança baseadas em **inteligência e desescalada**,
+visando reduzir ao máximo o confronto armado e preservar a vida de todos
+os envolvidos.
